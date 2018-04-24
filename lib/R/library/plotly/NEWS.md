@@ -1,4 +1,88 @@
-# 4.5.5.9000
+# 4.7.1
+
+## NEW FEATURES & IMPROVEMENTS
+
+* It is now possible to modify (i.e., update without a full redraw) plotly graphs inside of a shiny app via the new `plotlyProxy()` and `plotlyProxyInvoke()` functions. For examples, see `plotly_example("shiny", "proxy_relayout")` and `plotly_example("shiny", "proxy_mapbox")`. Closes #580. 
+* Added a new `plotly_example()` function to make it easier to run shiny/rmarkdown examples included with the package under the `inst/examples` directory.
+* The `schema()` function now returns the plot schema (rather just printing it), making it easier to acquire/use values from the official plot schema. See `help(schema)` for an example. Fixes #1038.
+
+## CHANGES
+
+* Upgraded to plotly.js v1.29.2 -- https://github.com/plotly/plotly.js/releases/tag/v1.29.2
+
+## BUG FIXES
+
+* The default sizing in `ggplotly()` is no longer fixed to the device size inside RStudio. Fixes #1033.
+* Removed use of `ArrayBuffer.isView()`, which should fix rendering issues on plaforms that don't have a typed array polyfill (e.g., RStudio on Windows). Fixes #1055.
+* `event_data("plotly_relayout")` no longer fires `NULL` for any event. Fixes #1039.
+* Fixed a bug when using `color` with scattermapbox/scattergeo. Fixes #1038.
+* Fixed a highlighting bug when brushing multiple points with `marker.color` as an array. Fixes #1084.
+
+
+# 4.7.0
+
+## NEW FEATURES & IMPROVEMENTS
+
+* Added support for fixed coordinates (i.e., the aspect ratio component of `coord_equal()`, `coord_fixed()`, `coord_map()`, `coord_quickmap()`).
+* Added support for `geom_sf()` and `coord_sf()`.
+* The (previously internal) `group2NA()` function is now exported and its performance has been greatly improved thanks to the new **data.table** dependency. Essentially any geom conversion that reduces to a polygon/path should see speed improvements. Similarly, any `plot_ly()` graph that use `group_by()` in conjunction with `add_lines()`, `add_paths()`, `add_segments()`, etc will also see improvements, especially when there is a large number of groups. For details on the speed improvements, see #1022 and #996 (thanks @msummersgill).
+* The `api_create()` function gains a new `fileopt` argument, which is inspired from the `fileopt` argument in the (deprecated) `plotly_POST()` function (fixes #976). It currently supports to values: `"new"` and `"overwrite"`. The default, `"overwrite"`, will overwrite existing file(s) with a matching `filename`.
+* The `filename` argument in `api_create()` now accepts a character vector of length 2, the first string is used to name the plot, and the second is used to name the grid (i.e., data behind the plot).
+
+## CHANGES
+
+* Upgraded to plotly.js v1.27.1 -- https://github.com/plotly/plotly.js/releases/tag/v1.27.1
+* The `traces` argument in the `style()` function now defaults to `NULL` (instead of 1). Meaning that, by default, supplied attributes now modify _every_ trace (instead of the first one).
+
+## Bug fixes 
+
+* Fixes numerous problems with `coord_flip()` (fixes #1012).
+* The typed array polyfill is now included *before* the plotly.js bundle, which should fix some rendering issues in some browsers, including RStudio (fixes #1010).
+* When creating private plots (via `api_create()`), both the plot and the data behind the plot are private (fixes #976).
+* Creating a plot with multiple traces (or frames) via (via `api_create()`) no longer creates multiple grids (fixes #1004).
+* The `api_create()` function should now create grid references for all data array attributes (fixes #1014).
+* `ggplotly()` no longer opens an (off-screen) graphics device in RStudio for sizing. It will now correctly use the size of the viewer panel when querying the size of the graphics device.
+* Margins are no longer always set to `NULL` for pie charts (fixes #1002)
+* Fixed bug when highlight multiple 'simple key' traces (fixes #974).
+
+# 4.6.0
+
+## NEW FEATURES & IMPROVEMENTS
+
+* Added a significant amount of support for "multiple linked views". For some relatively basic examples, see the demos (the ones prefixed with "highlight" are most relevant) -- `demo(package = "plotly")`. For a more comprehensive overview, see <https://cpsievert.github.io/plotly_book/linking-views-without-shiny.html>. For some more complex examples, see <https://cpsievert.github.io/pedestrians/>
+* Added the `highlight()` function for configuring selection modes/sequences/options.
+* Added support for animation. For some relatively basic examples, see the examples section of `help(animation)`. For a more thorough overview, see <https://cpsievert.github.io/plotly_book/key-frame-animations.html>
+* Added a `frame` argument to `plot_ly()` for creating animations. Also added the `animation_opts()`, `animation_slider()`, and `animation_button()` functions for configuring animation defaults.
+* Added a new interface to [v2 of the REST API](https://api.plot.ly/v2). This new interface makes the  `plotly_POST()` and `get_figure()` functions obsolete (use `api_create()` and `api_download_plot()` instead), and thus, are now deprecated, but remain around for backwards-compatibility. For more details, see `help(api)`.
+* Added support for conversion of more **ggplot2** geoms via `ggplotly()`: `GeomCol`, `GeomRug`, `GeomCrossbar`, `GeomQuantile`, `GeomSpoke`, `GeomDotplot`, `GeomRasterAnn` (i.e., `annotation_raster()`), and `GeomAnnotationMap` (i.e., `annotation_map()`).
+* Added a new function `raster2uri()` which makes it easier to embed raster objects as [images](https://plot.ly/r/reference/#layout-images) via data URIs. For examples, see `help(raster2uri)`.
+* `ggplotly()` gains a new argument, `dynamicTicks`, which allows axis ticks to update upon zoom/pan interactions (fixes #485).
+* Sensible sizing and positioning defaults are now provided for subplots multiple colorbars.
+* R linebreaks are translated to HTML linebreaks (i.e., '\n' translates to '<br />') (fixes #851).
+* Added a `plot_dendro()` function for a quick and dirty interactive dendrogram with support for hierarchial selection. For more, see -- <https://cpsievert.github.io/plotly_book/linking-views-without-shiny.html#nested-selections>
+* The `export()` function gains a `selenium` argument for rendering/exporting WebGL plots and exporting to 'svg'/'webp' file formats (via the plotly.js function [Plotly.downloadImage()](https://plot.ly/javascript/plotlyjs-function-reference/#plotlydownloadimage)).
+* Better type checking of trace attributes will now automatically reduce a single-valued vector to a constant (when appropriate). This is particularly useful for anchoring multiple traces to a single legend entry via `legendgroup` (see #675, #817, #826).
+* The `plotlyOutput()` function gains a `inline` argument which makes it easier to place multiple plots in the same row (in a shiny application).
+
+## CHANGES
+
+* Upgraded to plotly.js v1.26.1 -- https://github.com/plotly/plotly.js/releases/tag/v1.26.1
+* `ggplotly()` now applies `format()` to automatically generated hoverinfo. This will allow for finer control over the text displayed (for instance, `options(digits = 4)` can now be used to choose the number of significant digits used). See #834 for an example.
+* `HTMLwidgets.renderValue()` should now avoid creating too many active WebGL contexts (thanks @AleksandrIanevski).
+* A TypedArray polyfill is now included by default, and the function `remove_typedarray_polyfill()` was added to make it easy to remove it. Fixes #824, #717, #825.
+* If no graphics device is already open, `ggplotly()` now tries to open/close a Cairo graphics device, then a bitmap (png/jpeg) device. If neither is available, it errors. This helps to ensure that a *screen* device is never opened by `ggplotly()` (which fixes #829). Furthermore, if `width`/`height` is not specified *and* no graphics device is currently open, a default of 640/480 is used for width/height of the device. 
+
+## BUG FIXES
+
+
+* Placement of bars (in all cases, even when representing a negative count) should now be correct (applies to `geom_bar()`, `geom_histogram()`, `geom_col()`). Fixes #560, #874, #901, #831.
+* Fix for hoverinfo displaying the heights of bars in the translation `geom_bar()` via `ggplotly()`. Fixes #557 and #662.
+* `embed_notebook()` now works in *nteract* notebooks (see #768). 
+* Axis categories are no longer reordered for matrices (see #863).
+* Fix for hoverinfo displaying values after scale transformations (in `ggplotly()`). Fixes #804.
+* Font faces for axis titles are now translated (in `ggplotly()`). Fixes #861.
+
+# 4.5.6
 
 ## NEW FEATURES
 
@@ -137,7 +221,7 @@ limits.
 
 ## BUG FIXES
 
-* `event_data()` now works inside shiny modules (#659). For an example, see <https://github.com/ropensci/plotly/tree/master/inst/examples/plotlyShinyModules>
+* `event_data()` now works inside shiny modules (#659). For an example, see <https://github.com/ropensci/plotly/tree/master/inst/examples/shiny/event_data_modules>
 
 # 4.3.6 -- 9 September 2016
 
@@ -287,7 +371,7 @@ sorted alphabetically before scales are applied. Also, when mapping a factor to 
 * Misspecified trace/layout attributes produce a warning.
 * New `plotly_data()` function for returning/inspecting data frame(s) associated with a plotly object.
 * New `plotly_json()` function for inspecting the data sent to plotly.js (as an R list or JSON).
-* `layout()` is now a generic function and uses method dispatch to avoid conflicts with `graphics:layout()` (fixes #464).
+* `layout()` is now a generic function and uses method dispatch to avoid conflicts with `graphics::layout()` (fixes #464).
 
 ## OTHER CHANGES:
 
