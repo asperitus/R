@@ -1,26 +1,26 @@
 Package: lattice
-Version: 0.20-31
-Date: 2015/03/30
+Version: 0.20-35
+Date: 2017-03-23
 Priority: recommended
-Title: Lattice Graphics
+Title: Trellis Graphics for R
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>
 Maintainer: Deepayan Sarkar <deepayan.sarkar@r-project.org>
-Description: Lattice is a powerful and elegant high-level data
-  visualization system, with an emphasis on multivariate data, that is
-  sufficient for typical graphics needs, and is also flexible enough
-  to handle most nonstandard requirements.  See ?Lattice for an
-  introduction.
-Depends: R (>= 2.15.1)
-Suggests: KernSmooth, MASS
+Description: A powerful and elegant high-level data visualization
+  system inspired by Trellis graphics, with an emphasis on
+  multivariate data. Lattice is sufficient for typical graphics needs,
+  and is also flexible enough to handle most nonstandard requirements.
+  See ?Lattice for an introduction.
+Depends: R (>= 3.0.0)
+Suggests: KernSmooth, MASS, latticeExtra
 Imports: grid, grDevices, graphics, stats, utils
 Enhances: chron
 LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://lattice.r-forge.r-project.org/
-BugReports: http://r-forge.r-project.org/projects/lattice/
+BugReports: https://github.com/deepayan/lattice/issues
 NeedsCompilation: yes
-Packaged: 2015-03-30 07:06:28 UTC; deepayan
+Packaged: 2017-03-25 11:25:40 UTC; deepayan
 Repository: CRAN
-Date/Publication: 2015-03-30 09:53:18
-Built: R 3.2.1; x86_64-unknown-linux-gnu; 2015-07-18 22:59:32 UTC; unix
+Date/Publication: 2017-03-25 18:05:47 UTC
+Built: R 3.2.1; x86_64-unknown-linux-gnu; 2018-04-25 19:01:10 UTC; unix

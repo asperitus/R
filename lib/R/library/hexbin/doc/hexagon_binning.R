@@ -200,7 +200,7 @@ hdiffplot(erode(hbF,cdfcut = .25),erode(hbM,cdfcut = .25),unzoom = 1.3)
 ### code chunk number 10: marray1
 ###################################################
 ### Need to redo this part.
-library("marray")
+if (require("marray")) {
 data(swirl, package = "marray") ## use swirl dataset
 
 hb1 <- hexbin(maA(swirl[,1]), maM(swirl[,1]), xbins = 40)
@@ -224,16 +224,23 @@ hb <- plotMAhex(swirl[,1], newpage = FALSE,
 hexVP.abline(hb$plot.vp,h = 0,col = gray(.6))
 hexMA.loess(hb)
 popViewport()
+} else {
+	plot(1)
+}
 
 
 ###################################################
 ### code chunk number 11: addto
 ###################################################
-hplt <- plot(hb1,style = 'centroid',border = gray(.65))
+if (require("marray")) {
+hplt <- plot(hb1, style = 'centroid', border = gray(.65))
 pushHexport(hplt$plot.vp)
 ll.fit <- loess(hb1@ycm ~ hb1@xcm, weights = hb1@count, span = .4)
 pseq <- seq(hb1@xbnds[1]+1, hb1@xbnds[2]-1, length = 100)
 grid.lines(pseq, predict(ll.fit,pseq),
            gp = gpar(col = 2), default.units = "native")
+} else {
+	plot(1)
+}
 
 

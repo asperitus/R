@@ -1,3 +1,28 @@
+# Version 0.10.14
+
+ * Windows: Update mariadbclient to v 2.3.4
+ * Fix headers and linker flags for mariadb-connector-c 3.0 compatibility
+ * Remove some redundant include headers
+
+# Version 0.10.13
+
+ * Add cleanup script (requested by CRAN)
+ * Fix PROTECT() bugs from rchk
+
+# Version 0.10.12
+
+ * Windows: update libmariadbclient to v2.3.3 (fixes a timeout bug)
+ 
+# Version 0.10.11
+
+ * Fix for OSX Mavericks
+ 
+# Version 0.10.10
+ 
+ * Window: update libmariadbclient to v2.3.2
+ 
+ * OSX: extract autobrew script
+
 # Version 0.10.9
 
  * OSX binary packages for OSX now use mariadb-connector-c instead of mysql-connector-c

@@ -1,30 +1,51 @@
 Package: Matrix
-Version: 1.2-1
-Date: 2015-05-30
+Version: 1.2-14
+Date: 2018-04-06
 Priority: recommended
 Title: Sparse and Dense Matrix Classes and Methods
-Author: Douglas Bates <bates@stat.wisc.edu> and Martin Maechler
-Maintainer: Martin Maechler <mmaechler+Matrix@gmail.com>
 Contact: Doug and Martin <Matrix-authors@R-project.org>
-Description: Classes and methods for dense and sparse matrices and
-    operations on them using 'LAPACK' and 'SuiteSparse'.
-Depends: R (>= 3.0.1)
+Maintainer: Martin Maechler <mmaechler+Matrix@gmail.com>
+Authors@R: c(person("Douglas","Bates", role="aut")
+ , person("Martin","Maechler", email="mmaechler+Matrix@gmail.com",
+           role = c("aut","cre"))
+ , person("Timothy A.", "Davis", role="ctb",
+           comment = c("SuiteSparse and 'cs' C libraries, notably CHOLMOD, AMD;
+		       collaborators listed in
+			dir(pattern = '^[A-Z]+[.]txt$', full.names=TRUE,
+			    system.file('doc', 'SuiteSparse', package='Matrix'))"))
+ , person("Jens", "Oehlschlägel", role="ctb", comment="initial nearPD()")
+ , person("Jason", "Riedy", role="ctb",
+          comment = c("condest() and onenormest() for octave",
+ 	  	      "Copyright: Regents of the University of California"))
+ , person("R Core Team", role = "ctb", comment="base R matrix implementation")
+ )
+Description: A rich hierarchy of matrix classes, including triangular,
+   symmetric, and diagonal matrices, both dense and sparse and with
+   pattern, logical and numeric entries.   Numerous methods for and
+   operations on these matrices, using 'LAPACK' and 'SuiteSparse' libraries.
+Depends: R (>= 3.2.0)
 Imports: methods, graphics, grid, stats, utils, lattice
 Suggests: expm, MASS
 Enhances: MatrixModels, graph, SparseM, sfsmisc
 Encoding: UTF-8
 LazyData: no
 LazyDataNote: not possible, since we use data/*.R *and* our classes
-ByteCompile: yes
 BuildResaveData: no
-License: GPL (>= 2)
-LicenseNote: The Matrix package includes libraries AMD, CHOLMOD,
-        COLAMD, CSparse and SPQR from the SuiteSparse collection of Tim
-        Davis.  All sections of that code are covered by the GPL or
-        LGPL licenses.  See the directory doc/UFsparse for details.
+License: GPL (>= 2) | file LICENCE
 URL: http://Matrix.R-forge.R-project.org/
+BugReports: https://r-forge.r-project.org/tracker/?group_id=61
 NeedsCompilation: yes
-Packaged: 2015-06-01 10:18:55 UTC; maechler
+Packaged: 2018-04-06 21:34:14 UTC; maechler
+Author: Douglas Bates [aut],
+  Martin Maechler [aut, cre],
+  Timothy A. Davis [ctb] (SuiteSparse and 'cs' C libraries, notably
+    CHOLMOD, AMD; collaborators listed in dir(pattern =
+    '^[A-Z]+[.]txt$', full.names=TRUE, system.file('doc',
+    'SuiteSparse', package='Matrix'))),
+  Jens Oehlschlägel [ctb] (initial nearPD()),
+  Jason Riedy [ctb] (condest() and onenormest() for octave, Copyright:
+    Regents of the University of California),
+  R Core Team [ctb] (base R matrix implementation)
 Repository: CRAN
-Date/Publication: 2015-06-01 17:37:38
-Built: R 3.2.1; x86_64-unknown-linux-gnu; 2015-07-18 22:59:57 UTC; unix
+Date/Publication: 2018-04-09 17:10:53 UTC
+Built: R 3.2.1; x86_64-unknown-linux-gnu; 2018-04-25 19:44:31 UTC; unix

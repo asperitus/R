@@ -17,6 +17,11 @@ xts-package	xts-package
 .makeISO8601	parseISO8601
 .parseISO8601	parseISO8601
 .subset.xts	subset.xts
+addEventLines	addEventLines
+addLegend	addLegend
+addPanel	addPanel
+addPolygon	addPolygon
+addSeries	addSeries
 adj.time	align.time
 align.time	align.time
 align.time.xts	align.time
@@ -31,7 +36,6 @@ as.timeSeries.xts	as.xts.methods
 as.xts	as.xts
 as.xts.data.frame	as.xts.methods
 as.xts.fts	as.xts.methods
-as.xts.its	as.xts.methods
 as.xts.matrix	as.xts.methods
 as.xts.methods	as.xts.methods
 as.xts.timeSeries	as.xts.methods
@@ -74,6 +78,7 @@ last	first
 last.default	first
 last.xts	first
 lastof	firstof
+lines.xts	plot.xts
 make.index.unique	make.index.unique
 make.time.unique	make.index.unique
 makeISO8601	parseISO8601
@@ -96,6 +101,7 @@ period.prod	period.prod
 period.sum	period.sum
 periodicity	periodicity
 plot.xts	plot.xts
+points.xts	plot.xts
 rbind.xts	rbind.xts
 Reclass	as.xts
 reclass	as.xts

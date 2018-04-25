@@ -83,6 +83,7 @@ print.ggmatrix	print.ggmatrix
 print.glyphplot	glyphplot
 print.legend_guide_box	grab_legend
 print_if_interactive	print_if_interactive
+psychademic	psychademic
 putPlot	putPlot
 range01	rescale01
 require_pkgs	require_pkgs
@@ -95,6 +96,7 @@ skewness	skewness
 str.ggmatrix	str.ggmatrix
 twitter_spambots	twitter_spambots
 uppertriangle	uppertriangle
+v1_ggmatrix_theme	v1_ggmatrix_theme
 wrap	wrap
 wrapp	wrap
 wrap_fn_with_params	wrap

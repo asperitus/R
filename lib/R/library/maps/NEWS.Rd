@@ -1,5 +1,38 @@
 \name{NEWS}
 \title{News for package 'maps'}
+\section{Changes in maps version 3.3.0 (2018-04-03)}{
+  \itemize{
+    \item \code{legacy_world} and \code{world.legacy()} have been deprecated. The old database is now available from the companion package 'mapdata' (as of version 2.3.0) where it is called "worldLores".
+    \item Bug fixes:
+      \itemize{
+        \item Makefile has been fixed for possible whitespace in $R_HOME and for pre-existing $AWKPATH.
+        \item Various small fixes in data sets.
+      }
+  }
+}
+\section{Changes in maps version 3.2.0 (2017-06-07)}{
+  \itemize{
+    \item New map wrapping code should eliminate border artefacts on world maps, even with \code{fill=TRUE}. It can be called via \code{map(..., wrap=c(0,360),...)}, i.e. by giving \code{wrap} a vector in stead of a boolean value. The wrapping code is also directly available as \code{map.wrap.poly(data, xlim, poly=FALSE, antarctica=TRUE)}
+    \item \code{map()} has a new argument \code{lforce} (force limits). Possible values are \code{"n"} (no, default), \code{"e"} (exact limits), \code{"s"} (small enclosed rectangle) and \code{"l"} (large, enclosing rectangle). Forcing the limits will limit your map more forcibly to the given limits. \code{"s","l"} only impact the plotting window, but with \code{"e"} the data itself is clipped exactly to the borders.
+The clipping code is also directly available as \code{map.clip.poly(data, xlim=NULL, ylim=NULL, poly=FALSE)}.
+    \item Bug fixes:
+      \itemize{
+        \item All functions should now work if the package is not attached. So you can do \code{maps::map()} and even \code{maps::map("mapdata::worldHires")}
+        \item A long standing bug in map.where() was fixed. It probably only showed up with the "county" database (and only for about 20 counties in Missouri). The C code has also been optimised.
+        \item map() could have problems if \code{regions} was a factor rather than a character vector.
+        \item Minor correction to \code{us.cities}.
+        \item Fixed some duplicated region names in \code{italy} map.
+        \item The return value of \code{SpatialPolygons2map()} now has class \code{map}.
+        \item \code{county.fips} and \code{county.state}: changed from factors to character vectors.
+      }
+    \item Minor changes:
+      \itemize{
+        \item The C functions are now registered.
+        \item \code{maptype()} always returned \code{"spherical"} for external databases. Now it is possible to add a \code{maptype} manually, e.g. \code{mymap$maptype <- "planar"}.
+        \item When using projections, \code{map()} now checks for the availability of \code{mapproj} and gives a nicer message if it isn't available.
+      }
+  }
+}
 \section{Changes in maps version 3.1.1 (2016-07-19)}{
   \itemize{
     \item perl style regex caused problems for very long lists of regions. Fixed by setting perl=FALSE if the list of regions contains more than 1000 entries or the resulting regex is more than 30000 characters long.
@@ -9,7 +42,7 @@
 }
 \section{Changes in maps version 3.1.0 (2016-01-19)}{
   \itemize{
-    \item 'world' database changed to version without lakes punched out at the borders. The previous version still had various issues, so this is much cleaner. Now 'interior=FALSE' actually works on the whole world map.``
+    \item 'world' database changed to version without lakes punched out at the borders. The previous version still had various issues, so this is much cleaner. Now 'interior=FALSE' actually works on the whole world map.
     \item Major lakes are now available from a separate database 'lakes'.
     \item Basic support for 'SpatialPolygons' and 'SpatialLines' class objects as map database. Internally, \code{maps()} calls new functions \code{SpatialPolygons2map()} and \code{SpatialLines2map()} which transform to the simple 'maps' format, but \emph{only the polygon names and coordinates themselves}. All other information (holes, plotting order etc.) is ignored.
     \item 'world2' (the pacific centered map) now has clean cut polygons at the boundaries, so there are no more artefacts when e.g. \code{fill=TRUE}.

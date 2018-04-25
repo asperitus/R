@@ -1,7 +1,32 @@
+## 3.0.1 ##
+* Add an RStudio Addin for running a coverage report.
+
+* Never use mcexit fix on windows (#223).
+
+* Fix for a performance regression in parsing and reading parse data (#274).
+
+* Fix `switch` support for packages, which was broken due to a bug in
+  how parse data is stored in packages.
+
+* Improve behavior of `switch` coverage, it now supports default values and
+  fall through properly.
+
+* Add `-p` flag to gcov command to preserve file paths. Fixes a bug where
+  gcov output didn't get reported when multiple compiled source files had
+  the same name (#271, @patperry)
+
+## 3.0.0 ##
+* The covr license has been changed to GPL-3.
+* Set environment variable `R_COVR=true` when covr is running (#236, #268).
+* Made the gather-and-merge-results step at the end of package_coverage() more memory efficient (#226, @HenrikBengtsson).
+* Support code coverage with icc (#247, @QinWang).
+
 ## 2.2.2 ##
+* `filter_not_package_files()` now works if a source reference does not have a filename (#254, @hughjonesd).
 * Fix test broken with xml2 v1.1.0
 * Filter out non-local filenames from results (#237).
 * Vignette rewrite / improvements (#229, @CSJCampbell).
+* Fix code that returns `structure(NULL, *)` which is deprecated in R 3.4.0 (#260, #261, @renkun-ken).
 
 ## 2.2.1 ##
 * Fix test broken with DT 0.2

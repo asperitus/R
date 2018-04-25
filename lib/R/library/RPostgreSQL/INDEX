@@ -14,8 +14,8 @@ dbApply                 Apply R/S-Plus functions to remote groups of
                         DBMS rows (experimental)
 dbApply-methods         Apply R/S-Plus functions to remote groups of
                         DBMS rows (experimental)
+dbBegin-method          DBMS Transaction Management
 dbCallProc-methods      Call an SQL stored procedure
-dbCommit-methods        DBMS Transaction Management
 dbConnect-methods       Create a connection object to an PostgreSQL
                         DBMS
 dbDataType-methods      Determine the SQL Data Type of an S object

@@ -3,10 +3,315 @@
 \name{NEWS}
 \title{News for \R Package \pkg{Matrix}}% MM: look into ../svn-log-from.all
 \encoding{UTF-8}
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+%% as long as not R >= 3.2.0, ~/R/D/r-devel/R/share/Rd/macros/system.Rd :
+\newcommand{\CRANpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\sspace}{\ifelse{latex}{\out{~}}{ }}
 %% NB: The date (yyyy-mm-dd) is the "Packaged:" date in ../DESCRIPTION
 
-\section{Changes in version 1.2-1 (2015-05-30)}{
+%%_NOT YET__FIXME_ : needs *MORE THAN* cholmod_l_dense_to_sparse() in
+%%----------------   our dense_to_Csparse() in ../src/dense.c (see there)
+%%
+%% \item \code{as(<large-matrix>, "sparseMatrix")} no longer fails
+%%  when \code{prod(dim(.))} is larger than \eqn{2^{31} - 1}.
+%
+\section{Changes in version 1.2-14 (2018-..-.., svn r...)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item one more \code{PROTECT()}.
+    }
+  }
+}
+
+\section{Changes in version 1.2-13 (2018-03-25, svn r3275)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Faster \code{as(<matrix>, "sparseMatrix")} and coercion
+	\code{"dgCMatrix"}, \code{"ngCMatrix"}, etc, via new direct C
+	\code{matrix_to_Csparse()} which does \emph{not} go via
+	\code{"dgeMatrix"}.  This also works for large matrices
+	\code{m}, i.e., when \code{length(m) >= .Machine$integer.max}.
+
+	Also provide low-level \R functions \code{.m2dgC()},
+	\code{.m2lgC()}, and \code{.m2ngC()} for these.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{cbind(NULL,<Matrix>)} no longer return \code{NULL};
+      analogously for \code{rbind()}, \code{rbind2()}, \code{cbind2()},
+      fixing very long standing typo in the corresponsing \code{cbind2()}
+      and \code{rbind2()} methods.
+
+      \item The deprecation warning (once per session) for
+      \code{cBind()} and \code{rBind()} finally works (fixing a simple thinko).
+
+      \item \code{cbind()} and \code{rbind()} for largish sparse
+      matrices no longer gives an error because of integer overflow
+      (in the default case where \code{sparse} is not been specified
+      hence is chosen by a \code{nnzero()} based heuristic).
+
+      \item \code{.symDiagonal(5, 5:1)} and \code{.trDiagonal(x = 4:1)}
+      now work as expected.
+
+      \item \code{Sp[i]} now is much more efficient for large sparse
+      matrices \code{Sp}, notably when the result is short.
+
+      \item \code{<sparseVector>[ <negative integer> ]} now also gives
+      the correct answer when the result is \dQuote{empty}, i.e., all
+      zero or false.
+
+      \item large \code{"dspMatrix"} and \code{"dtpMatrix"} objects can
+      now be constructed via \code{new(*, Dim = *, x = *)} also when
+      \code{length(x)} is larger than 2^31 (as the C internal
+      validation method no longer suffers from integer overflow).
+
+      \item More \samp{PROTECT()}ing to be \dQuote{rather safe than
+	sorry} thanks to Tomas Kalibera's check tools.
+    }
+  }
+}
+
+\section{Changes in version 1.2-12 (2017-11-10, svn r3239)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{crossprod(x,y)} and \code{kronecker(x,y)} have become
+      considerably more efficient for large \code{"indMatrix"} objects
+      \code{x, y}, thanks to private nudging by Boris Vaillant.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item (R-forge Matrix bug #6185): \code{c < 0} now also works for
+      derived sparse Matrices (which only \emph{contain} Matrix
+      classes); via improving hidden \code{MatrixClass()}.   Part of
+      such derived matrices only work in R >= 3.5.0.
+
+      \item using \code{Authors@R} in \file{../DESCRIPTION} to list all
+      contributors.
+
+      \item \code{solve(-m)} no longer should use a cached Cholesky
+      factorization (of \code{m}).
+    }
+  }
+}
+
+\section{Changes in version 1.2-11 (2017-08-10, svn r3225)}{
+  \subsection{New Features}{
+    \itemize{
+      \item S4 method dispatch no longer emits ambiguity
+      notes (by default) for everybody, apart from the package
+      maintainer.  You can reactivate them by
+      \code{options(Matrix.ambiguityNotes = TRUE)}
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{rankMatrix(<matrix of all 0>)} now gives zero for all
+      methods, as it should be.
+
+      \item no longer calling \code{length(NULL) <- <positive>} which
+      has been deprecated in R-devel since July.
+
+      \item \code{qr.coef(<sparseQR>, y)} now finally has correct (row)
+      names (from pivot back permutation).
+
+      \item \code{.trDiagonal()} utility is now exported.
+    }
+  }
+}
+
+\section{Changes in version 1.2-10 (2017-04-19, svn r3216)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item quite a collection of new \code{PROTECT(.)}'s thanks to
+      Tomas Kalibera's \sQuote{rprotect} analysis.
+    }
+  }
+}
+
+\section{Changes in version 1.2-9 (2017-03-08, svn r3211)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{"Ops"} between "table", "xtabs", and our matrices now work.
+      \item \code{as(matrix(diag(3), 3, dimnames=rep(list(c("A","b","c")),2)),
+ 	"diagonalMatrix")@x} is no longer named.
+      \item \code{norm(x, "2")} now works as well (and equivalently to \code{base::norm}).
+      \item \code{sparseVector()} now also works without \code{x} argument.
+      \item \code{c.sparseVector()} method for \code{c()} of
+      sparseVectors (and available as regular function on purpose).
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{as(Diagonal(3), "denseMatrix")} no longer returns a
+      non-dense \code{"ddiMatrix"}.
+
+      \item \code{S[sel,] <- value} and similar no longer segfault, but
+      give a \code{"not (yet?) supported"} error
+      for sparse matrices \code{S} and logical \code{sel} when
+      \code{sel} contains \code{NA}s.
+
+      The same error (instead of a low-level one) is signalled for
+      \emph{indexing} (with NA-containing logical \code{sel}), i.e.,
+      \code{S[sel,]}.
+      %% from in ../TODO :
+      %% \item \code{S[sel,]}, \code{S[,sel] <- value} and similar now also work for
+      %% sparse matrices \code{S} and logical \code{sel} when \code{sel} contains \code{NA}s.
+
+      \item \code{which(x, arr.ind=TRUE, *)} (when \code{x} is a
+      \code{"lMatrix"} or \code{"nMatrix"}) now works the same as
+      \code{base::which}, obeying an optional \code{useNames} argument
+      which defaults to \code{TRUE}.  Previously, the resulting
+      two-column matrix typically had empty \code{dimnames}.
+    }
+  }
+}
+
+\section{Changes in version 1.2-8 (2017-01-16, svn r3201)}{
+  \subsection{New Features}{
+    \itemize{
+      \item 0-length matrix \code{"Ops"} (binary operations) are now
+      compatible to R-devel (to be \R 3.4.0).
+      \item C-API: \code{SuiteSparse_long} is now defined as
+      \code{int64_t} on all platforms, and we now include (C99) \file{inttypes.h}
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{x[.] <- value} now also works for
+      \code{"sparseVector"}'s, both as \code{x} and as \code{value}.
+      \item \code{x[FALSE] <- value} now also works for \code{"sparseVector"}'s.
+
+      \item \code{rep(x, *)} now works for \code{"sparseVector"}s and
+      sparse and dense \code{"Matrix"}-classed matrices \code{x}.
+
+      \item \code{solve(<sparse_LU>)} no gives an error in some cases of
+      singular matrices, where before the C code accessed illegal memory locations.
+    }
+  }
+}
+
+
+\section{Changes in version 1.2-7.1 (2016-08-29, svn r3187)}{
+  \itemize{ \item in C code, protect _POSIX_C_SOURCE by #ifdef __GLIBC__ }
+}
+\section{Changes in version 1.2-7 (2016-08-27, svn r3185)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{cBind()} and \code{rBind()} have been almost silently
+      deprecated in \R \code{>= 3.2.0} and now give a warning,
+      \dQuote{once per session} only.
+
+      \item \code{bandSparse(*, k=k, *)} now returns matrices inheriting from
+      \code{"triangularMatrix"} when obvious from the diagonal indices \code{k}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{KhatriRao(X,Y)} now also works when \code{X} or
+      \code{Y} is completely zero.
+    }
+  }
+}
+
+\section{Changes in version 1.2-6 (2016-04-27, svn r3175)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item The 0-dim. Matrix multiplication fix in 1.2-5 did trigger
+      wrong warnings in other diagonal matrix multiplications.
+    }
+  }
+}
+
+\section{Changes in version 1.2-5 (2016-04-14, svn r3170)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{isSymmetric(m)} now also works for \code{"indMatrix"} \code{m}.
+      \item \code{isSymmetric(m)} is faster for large dense asymmetric matrices.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Matrix multiplications (\code{A \%*\% B}) now work correctly
+      when one of the matrices is diagonal and the other has a zero dimension.
+    }
+  }
+}
+
+\section{Changes in version 1.2-4 (2016-02-29, svn r3162)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{sparseMatrix()} gets new argument \code{triangular}
+      and a smarter default for \code{dims} when \code{symmetric} or
+      \code{triangular} is true.
+      \item \code{as(<sparse>, "denseMatrix")} now works in more cases
+      when \code{prod(dim(.))} is larger than \eqn{2^{31} - 1}.
+      Hence, e.g., \code{!S} now works for much larger sparse matrices
+      \code{S}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item creating very large dense matrices, e.g., by
+      \code{as(<sparseM.>, "matrix")} would segfault (in case it could
+      allocate enough storage).
+    }
+  }
+}
+
+\section{Changes in version 1.2-3 (2015-11-19, svn r3155)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{MatrixClass()} is exported now.
+      \item More exports of semi-internal functions (for speed, named
+      \code{".<foo>"}, i.e., inofficial API), such as \code{.solve.dgC.lu()}.
+      \item more Korean translations
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Packages \emph{linking} to \pkg{Matrix} (\code{LinkingTo:}
+      in \file{DESCRIPTION}) now find
+      \samp{alloca} properly defined in \file{Matrix.h} even for non-GNU
+      compilation environments such as on Solaris or AIX.
+
+      \item extended "n?CMatrix" classes (e.g., from \code{setClass(.,
+	contains="ngCMatrix")}) now can be coerced via \code{as(.)} to
+      \code{"d.CMatrix"}.
+
+      \item The printing of largish sparse matrices is improved, notably
+      in the case where columns are suppressed, via new \code{fitWidth =
+	TRUE} option in \code{printSpMatrix2()}. %%% FIXME __ EXAMPLES __
+
+      \item \code{cbind2()} and \code{rbind2()} no longer fail to
+      determine \code{sparse} when it is unspecified and hence
+      \code{NA}, fixing R-forge bug #6259.
+    }
+  }
+}
+
+\section{Changes in version 1.2-2 (2015-07-03, svn r3131)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Explicitly import from \dQuote{base} packages such as \code{"stats"}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Our \code{colSums(x)}, \code{rowMeans(y)}, \dots, methods
+      now \dQuote{keep names}, i.e., if the result is a numeric vector,
+      and the matrix \code{x} has column or row names, these become the
+      \code{names(.)} of the result, fixing R-forge bug #6018.
+    }
+  }
+}
+
+\section{Changes in version 1.2-1 (2015-05-30, svn r3127)}{
   \subsection{New Features}{
     \itemize{
       \item \code{"Matrix"} now has an \code{initialization()} method
@@ -326,7 +631,7 @@
   }
   \subsection{Bug Fixes}{
     \itemize{
-      \item \code{as(<csr>, "dgCMatrix")} (from package \pkg{SparseM})
+      \item \code{as(<csr>, "dgCMatrix")} (from package \CRANpkg{SparseM})
       now works again.
       \item .
     }
@@ -545,7 +850,7 @@
 \section{Changes in version 0.9-1 (2005-01-24, svn r451)}{
   \subsection{New Features}{
     \itemize{
-      \item lme4 / lmer specific R code moved out to \pkg{lme4} package.
+      \item lme4 / lmer specific R code moved out to \CRANpkg{lme4} package.
     }
   }
   \subsection{Bug Fixes}{

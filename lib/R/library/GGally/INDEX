@@ -42,7 +42,7 @@ ggally_nostic_std_resid
 ggally_points           Plots the Scatter Plot
 ggally_ratio            Plots a mosaic plot
 ggally_smooth           Plots the Scatter Plot with Smoothing
-ggally_text             GGplot Text
+ggally_text             Text Plot
 ggcoef                  ggcoef - Plot Model Coefficients with broom and
                         ggplot2
 ggcorr                  ggcorr - Plot a correlation matrix with ggplot2
@@ -52,7 +52,7 @@ ggfacet                 ggfacet - single ggplot2 plot matrix with
                         facet_grid
 gglegend                Plot only legend of plot function
 ggmatrix                ggmatrix - A ggplot2 Matrix
-ggmatrix_gtable         Print ggpair object
+ggmatrix_gtable         Print ggmatrix object
 ggnet                   ggnet - Plot a network with ggplot2
 ggnet2                  ggnet2 - Plot a network with ggplot2
 ggnetworkmap            ggnetworkmap - Plot a network with ggplot2
@@ -78,8 +78,9 @@ model_response_variables
                         Model term names
 nasa                    Data from the Data Expo JSM 2006.
 pigs                    United Kingdom Pig Production
-print.ggmatrix          Print ggpair object
+print.ggmatrix          Print ggmatrix object
 print_if_interactive    Print if not CRAN
+psychademic             UCLA canonical correlation analysis data
 putPlot                 Put Plot
 rescale01               Rescaling functions
 scag_order              Find order of variables
@@ -91,5 +92,7 @@ str.ggmatrix            ggmatrix structure
 twitter_spambots        Twitter spambots
 uppertriangle           uppertriangle - rearrange dataset as the
                         preparation of ggscatmat function
+v1_ggmatrix_theme       Modify a ggmatrix object by adding an ggplot2
+                        object to all plots
 wrap_fn_with_param_arg
                         Wrap a function with different parameter values

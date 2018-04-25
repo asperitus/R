@@ -176,6 +176,7 @@ na.locf	na.locf
 na.locf.data.frame	na.locf
 na.locf.default	na.locf
 na.locf.list	na.locf
+na.locf0	na.locf
 na.spline	na.approx
 na.spline.default	na.approx
 na.spline.ts	na.approx

@@ -1,8 +1,9 @@
 Package: devtools
 Title: Tools to Make Developing R Packages Easier
-Version: 1.12.0
+Version: 1.13.5
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Hadley", "Wickham", role = "aut"),
+    person("Jim", "Hester", , "james.hester@rstudio.com", role = c("aut", "cre")),
     person("Winston", "Chang", role = "aut"),
     person("RStudio", role = "cph"),
     person("R Core team", role = "ctb",
@@ -16,21 +17,22 @@ Depends: R (>= 3.0.2)
 Imports: httr (>= 0.4), utils, tools, methods, memoise (>= 1.0.0),
         whisker, digest, rstudioapi (>= 0.2.0), jsonlite, stats, git2r
         (>= 0.11.0), withr
-Suggests: curl (>= 0.9), crayon, testthat (>= 0.7), BiocInstaller, Rcpp
-        (>= 0.10.0), MASS, rmarkdown, knitr, hunspell (>= 1.2), lintr
-        (>= 0.2.1), bitops, roxygen2 (>= 5.0.0), evaluate, rversions,
-        covr, gmailr (> 0.7.0)
+Suggests: curl (>= 0.9), crayon, testthat (>= 1.0.2), BiocInstaller,
+        Rcpp (>= 0.10.0), MASS, rmarkdown, knitr, hunspell (>= 2.0),
+        lintr (>= 0.2.1), bitops, roxygen2 (>= 5.0.0), evaluate,
+        rversions, covr, gmailr (> 0.7.0)
 License: GPL (>= 2)
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: yes
-Packaged: 2016-12-05 14:53:59 UTC; hornik
-Author: Hadley Wickham [aut, cre],
+Packaged: 2018-01-05 20:42:48 UTC; jhester
+Author: Hadley Wickham [aut],
+  Jim Hester [aut, cre],
   Winston Chang [aut],
   RStudio [cph],
   R Core team [ctb] (Some namespace and vignette code extracted from base
     R)
-Maintainer: Hadley Wickham <hadley@rstudio.com>
+Maintainer: Jim Hester <james.hester@rstudio.com>
 Repository: CRAN
-Date/Publication: 2016-12-05 18:28:47
-Built: R 3.2.1; x86_64-unknown-linux-gnu; 2017-04-19 07:40:42 UTC; unix
+Date/Publication: 2018-02-18 21:53:25 UTC
+Built: R 3.2.1; ; 2018-04-25 18:37:19 UTC; unix

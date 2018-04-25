@@ -35,6 +35,8 @@ except_some_of	character_class
 exclude_range	character_class
 group	group
 lookarounds	lookarounds
+m	re_matches
+matches	re_matches
 maybe	wildcards
 n	counts
 none_of	character_class
@@ -52,9 +54,11 @@ rex_	rex
 rex_mode	rex_mode
 re_matches	re_matches
 re_substitutes	re_substitutes
+s	re_substitutes
 shortcuts	shortcuts
 single_shortcuts	single_shortcuts
 some_of	character_class
+substitutes	re_substitutes
 wildcards	wildcards
 zero_or_more	wildcards
 zero_or_one	wildcards

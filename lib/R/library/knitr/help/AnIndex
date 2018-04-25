@@ -33,9 +33,12 @@ include_app	include_url
 include_graphics	include_graphics
 include_url	include_url
 inline_expr	inline_expr
+is_html_output	output_type
+is_latex_output	output_type
 kable	kable
 knit	knit
 knit2html	knit2html
+knit2pandoc	knit2pandoc
 knit2pdf	knit2pdf
 knit2wp	knit2wp
 knitr	knitr-package

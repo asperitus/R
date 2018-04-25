@@ -12,7 +12,7 @@ package_coverage	package_coverage
 percent_coverage	percent_coverage
 print.coverage	print.coverage
 report	report
-shine	report
+shine	covr-deprecated
 system_check	system_check
 system_output	system_output
 tally_coverage	tally_coverage

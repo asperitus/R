@@ -31,15 +31,16 @@ out <- readLines(con)
 close(con)
 cat(out, sep = "\n")
 
-## ---------------------------------------------------------------------------------------------------------------------
-con <- curl("https://httpbin.org/drip?duration=1&numbytes=50")
-open(con, "rb", blocking = FALSE)
-while(isIncomplete(con)){
-  buf <- readBin(con, raw(), 1024)
-  if(length(buf)) 
-    cat("received: ", rawToChar(buf), "\n")
-}
-close(con)
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------
+#  # This httpbin mirror doesn't cache
+#  con <- curl("https://nghttp2.org/httpbin/drip?duration=1&numbytes=50")
+#  open(con, "rb", blocking = FALSE)
+#  while(isIncomplete(con)){
+#    buf <- readBin(con, raw(), 1024)
+#    if(length(buf))
+#      cat("received: ", rawToChar(buf), "\n")
+#  }
+#  close(con)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 pool <- new_pool()
@@ -55,7 +56,7 @@ print(out)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 # This is OK
-curl_download('https://cran.r-project.org/CRAN_mirrors.csv', 'mirrors.csv')
+curl_download('https://cloud.r-project.org/CRAN_mirrors.csv', 'mirrors.csv')
 mirros <- read.csv('mirrors.csv')
 unlink('mirrors.csv')
 
@@ -64,12 +65,12 @@ close(con)
 rm(con)
 
 ## ---------------------------------------------------------------------------------------------------------------------
-req <- curl_fetch_memory('https://cran.r-project.org/CRAN_mirrors.csv')
+req <- curl_fetch_memory('https://cloud.r-project.org/CRAN_mirrors.csv')
 print(req$status_code)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 # Oops a typo!
-req <- curl_fetch_disk('https://cran.r-project.org/CRAN_mirrorZ.csv', 'mirrors.csv')
+req <- curl_fetch_disk('https://cloud.r-project.org/CRAN_mirrorZ.csv', 'mirrors.csv')
 print(req$status_code)
 
 # This is not the CSV file we were expecting!
@@ -143,6 +144,7 @@ h <- new_handle()
 handle_setform(h,
   foo = "blabla",
   bar = charToRaw("boeboe"),
+  iris = form_data(serialize(iris, NULL), "application/rda"),
   description = form_file(system.file("DESCRIPTION")),
   logo = form_file(file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg"), "image/jpeg")
 )
@@ -151,8 +153,8 @@ req <- curl_fetch_memory("http://httpbin.org/post", handle = h)
 ## ---------------------------------------------------------------------------------------------------------------------
 library(magrittr)
 
-new_handle() %>% 
-  handle_setopt(copypostfields = "moo=moomooo") %>% 
+new_handle() %>%
+  handle_setopt(copypostfields = "moo=moomooo") %>%
   handle_setheaders("Content-Type" = "text/moo", "Cache-Control" = "no-cache", "User-Agent" = "A cow") %>%
   curl_fetch_memory(url = "http://httpbin.org/post") %$% content %>% rawToChar %>% cat
 

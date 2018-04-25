@@ -1,2 +1,1 @@
-nanotime                Nanosecond resolution datetime functionality
-nanotime-package        Nanosecond-Resolution Time for R
+nanotime-class          Nanosecond resolution datetime functionality

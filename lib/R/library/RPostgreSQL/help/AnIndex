@@ -16,6 +16,8 @@ coerce-methods	summary-methods
 dbApply	dbApply
 dbApply,PostgreSQLResult-method	dbApply-methods
 dbApply-methods	dbApply-methods
+dbBegin,PostgreSQLConnection-method	dbCommit-methods
+dbBegin-method	dbCommit-methods
 dbCallProc,PostgreSQLConnection-method	dbCallProc-methods
 dbCallProc-methods	dbCallProc-methods
 dbClearResult,PostgreSQLResult-method	dbSendQuery-methods
@@ -23,7 +25,7 @@ dbClearResult-methods	dbSendQuery-methods
 dbColumnInfo,PostgreSQLResult-method	dbGetInfo-methods
 dbColumnInfo-methods	dbGetInfo-methods
 dbCommit,PostgreSQLConnection-method	dbCommit-methods
-dbCommit-methods	dbCommit-methods
+dbCommit-method	dbCommit-methods
 dbConnect,character-method	dbConnect-methods
 dbConnect,PostgreSQLConnection-method	dbConnect-methods
 dbConnect,PostgreSQLDriver-method	dbConnect-methods
@@ -70,7 +72,7 @@ dbReadTable-methods	dbReadTable-methods
 dbRemoveTable,PostgreSQLConnection,character-method	dbReadTable-methods
 dbRemoveTable-methods	dbReadTable-methods
 dbRollback,PostgreSQLConnection-method	dbCommit-methods
-dbRollback-methods	dbCommit-methods
+dbRollback-method	dbCommit-methods
 dbSendQuery,PostgreSQLConnection,character-method	dbSendQuery-methods
 dbSendQuery-methods	dbSendQuery-methods
 dbSetDataMappings,PostgreSQLResult,data.frame-method	dbSetDataMappings-methods
@@ -109,6 +111,7 @@ postgresqlDescribeFields	postgresqlSupport
 postgresqlDescribeResult	postgresqlSupport
 PostgreSQLDriver-class	PostgreSQLDriver-class
 postgresqlDriverInfo	postgresqlSupport
+postgresqlEscapeBytea	postgresqlSupport
 postgresqlEscapeStrings	postgresqlSupport
 postgresqlExecStatement	postgresqlSupport
 postgresqlFetch	postgresqlSupport
@@ -125,6 +128,7 @@ PostgreSQLResult-class	PostgreSQLResult-class
 postgresqlResultInfo	postgresqlSupport
 postgresqlTableRef	postgresqlSupport
 postgresqlTransactionStatement	postgresqlSupport
+postgresqlUnescapeBytea	postgresqlSupport
 postgresqlWriteTable	postgresqlSupport
 print,dbObjectId-method	summary-methods
 show,dbObjectId-method	summary-methods
