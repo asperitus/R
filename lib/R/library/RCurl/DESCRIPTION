@@ -40,4 +40,4 @@ NeedsCompilation: yes
 Packaged: 2018-01-02 17:59:16 UTC; ripley
 Repository: CRAN
 Date/Publication: 2018-01-04 07:31:37 UTC
-Built: R 3.2.1; x86_64-unknown-linux-gnu; 2018-04-25 18:59:34 UTC; unix
+Built: R 3.2.1; x86_64-unknown-linux-gnu; 2018-04-26 00:28:26 UTC; unix
