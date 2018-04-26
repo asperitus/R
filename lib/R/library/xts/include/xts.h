@@ -25,13 +25,11 @@ extern "C" {
 /*
 INTERNAL SYMBOLS
 */
-SEXP xts_IndexSymbol;
-SEXP xts_ClassSymbol;
-SEXP xts_IndexFormatSymbol;
-SEXP xts_IndexClassSymbol;
-SEXP xts_IndexTZSymbol;
-SEXP xts_IndexTclassSymbol;
-SEXP xts_IndexTzoneSymbol;
+#define  xts_IndexSymbol                install("index")
+#define  xts_ClassSymbol                install(".CLASS")
+#define  xts_IndexFormatSymbol          install(".indexFORMAT")
+#define  xts_IndexClassSymbol           install(".indexCLASS")
+#define  xts_IndexTZSymbol              install(".indexTZ")
 
 /*
 DATA TOOLS
@@ -60,12 +58,6 @@ DATA TOOLS
 #define  SET_xtsCLASS(x,value)          setAttrib(x, xts_ClassSymbol, value)
 
 /*
-IMPORTS FROM zoo
-*/
-SEXP(*zoo_lag)(SEXP,SEXP,SEXP);
-SEXP(*zoo_coredata)(SEXP,SEXP);
-
-/*
 FUNCTIONS
 */
 SEXP do_xtsAttributes(SEXP x);              // xtsAttributes i.e. user-added attributes
@@ -81,6 +73,7 @@ SEXP do_rbind_xts(SEXP x, SEXP y, SEXP dup);
 SEXP rbindXts(SEXP args);
 SEXP do_subset_xts(SEXP x, SEXP sr, SEXP sc, SEXP drop);
 SEXP number_of_cols(SEXP args);
+SEXP col_names(SEXP args);
 SEXP naCheck(SEXP x, SEXP check);
 
 SEXP make_index_unique(SEXP x, SEXP eps);

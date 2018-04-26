@@ -1,44 +1,12 @@
-# load symbol table
+# load fortran symbol table
 useDynLib(xts)
 
-# non-base package imports
-importFrom(stats,
-  lag,
-  time,
-  sd,
-  median,
-  na.omit,
-  na.action,
-  na.pass,
-  start,
-  end,
-  ts,
-  as.ts,
-  frequency,
-  tsp,
-  'tsp<-')
+# imports
+importFrom(stats, lag)
+importFrom(stats, as.ts)
+importFrom(zoo,zoo)
+importFrom(zoo,MATCH)
 
-importFrom(methods,
-  hasArg)
-
-importFrom(grDevices,
-  xy.coords)
-
-importFrom(graphics,
-  abline,
-  legend,
-  lines,
-  par,
-  plot,
-  plot.new,
-  polygon,
-  segments,
-  text)
-
-importFrom(utils,
-  str)
-
-# xts exports
 export(.parseISO8601)
 
 export(firstof,
@@ -152,21 +120,10 @@ export(split.xts)
 export(axTicksByTime)
 
 export(plot.xts)
-export(addLegend)
-export(addEventLines)
-# export(addPoints)
-export(addSeries)
-export(addPanel)
-export(addPolygon)
+#export(lines.xts)
 S3method(plot,xts)
 S3method(lines,xts)
 S3method(points,xts)
-S3method(print, replot_xts)
-S3method(plot, replot_xts)
-
-#export(lines.xts)
-#S3method(lines,xts)
-#S3method(points,xts)
 
 #export(Lag.xts, Next.xts) #, Diff.xts)
 
@@ -200,13 +157,9 @@ importFrom(zoo, na.locf)
 importFrom(zoo, as.zoo)
 #importFrom(zoo, lagts)
 importFrom(zoo, rollapply)
-importFrom(zoo, na.approx)
-importFrom(zoo, na.fill)
-importFrom(zoo, as.yearmon)
-importFrom(zoo, as.yearqtr)
-importFrom(zoo, is.regular)
-importFrom(zoo, zoo)
-importFrom(zoo, MATCH)
+importFrom(stats,na.omit)
+importFrom(stats,start)
+importFrom(stats,end)
 S3method(coredata,xts)
 S3method(xcoredata,default)
 S3method('xcoredata<-',default)
@@ -223,13 +176,10 @@ S3method(print,xts)
 S3method(print,CLASS)
 S3method('CLASS<-',xts)
 
-S3method(dimnames, xts)
-S3method('dimnames<-', xts)
-
 S3method('indexClass<-',xts)
 S3method('tclass<-',xts)
 
-S3method('indexFormat',xts)
+S3method('indexFormat<-',xts)
 S3method('indexFormat<-',xts)
 
 S3method(indexTZ,xts)
@@ -283,14 +233,14 @@ S3method(as.data.frame, xts)
 S3method(as.xts,matrix)
 S3method(as.matrix,xts)
 
-# environment specific methods
-#S3method(as.xts,environment)
-S3method(as.environment,xts)
-
 # timeSeries (package:timeSeries) specific methods
 #export(xts.as.timeSeries)
 export(as.timeSeries.xts)
 S3method(as.xts,timeSeries)
+
+# its (package:its) specific methods
+#export(xts.as.its)
+S3method(as.xts,its)
 
 # irts (package:tseries) specific methods
 S3method(as.xts,irts)
@@ -314,3 +264,6 @@ S3method(as.xts,timeDate)
 ## currently unexported functions that _may_ be exported at some point
 
 #export(startof,endof,firstof,lastof)
+
+# as.Date.numeric fix
+S3method('as.Date', 'numeric')

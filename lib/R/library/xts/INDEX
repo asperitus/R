@@ -2,11 +2,6 @@
 .parseISO8601           Internal ISO 8601:2004(e) Time Parser
 CLASS                   Extract and Set .CLASS Attribute
 [.xts                   Extract Subsets of xts Objects
-addEventLines           Add vertical lines to an existing xts plot
-addLegend               Add Legend
-addPanel                Add a panel to an existing xts plot
-addPolygon              Add a polygon to an existing xts plot
-addSeries               Add a time series to an existing xts plot
 align.time              Align seconds, minutes, and hours to beginning
                         of next period.
 apply.monthly           Apply Function over Calendar Periods
